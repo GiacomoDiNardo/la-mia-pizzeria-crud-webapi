@@ -34,6 +34,11 @@
             return Pizzas.Where(pizza => pizza.PizzaId == id).FirstOrDefault();
         }
 
+        public List<Pizza> SearchByTitle(string? title)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Pizza pizza, Pizza formData, List<int> selectedIngredients)
         {
             pizza = formData;

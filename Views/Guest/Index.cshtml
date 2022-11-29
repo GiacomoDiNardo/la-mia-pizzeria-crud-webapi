@@ -2,47 +2,88 @@
     Layout = "_Layout";
 }
 
-<div class="row js_no_post text-center d-none">
+<div>
+    <input type="text" class="js_search" />
+</div>
+<div class="row js_no_pizza text-center d-none">
     <div class="col-12">
         <h3>Non hai inserito alcun post</h3>
     </div>
 </div>
-<div class="row js_post_table d-none">
+<div class="row js_pizza_table d-none">
     <!-- qui verranno mostrati gli elementi -->
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.min.js"></script>
 
-<script type="text/javascript">
 
-    axios.get('api/pizza/get').then(res => {
+@section Scripts{
+    <script type="text/javascript">
 
-        if (res.data.length == 0) {
-            document.querySelector('.js_no_post').classList.remove('d-none');
-            document.querySelector('.js_post_table').classList.add('d-none');
-        } else {
-            document.querySelector('.js_post_table').classList.remove('d-none');
-            document.querySelector('.js_no_post').classList.add('d-none');
-            document.querySelector('.js_post_table').innerHTML = '';
-            res.data.forEach(post => {
-                console.log('post', post);
-                document.querySelector('.js_post_table').innerHTML +=
-                    `
-                                                            <div class="col-12 col-md-4 p-2">
-                                        <div class="card post h-100">
-                                          <img src="${post.image}" class="card-img-top" alt="...">
-                                          <div class="card-body">
-                                            <h5 class="card-title">${post.title}</h5>
-                                            <p class="card-text">${post.description}</p>
-                                          </div>
-                                        </div>
-                                    </div>
-                                    `;
-            });
+        document.querySelector(".js_search").addEventListener('keyup', OnUserInputEvent);
+
+        var timeoutId = null;
+
+        function OnUserInputEvent(e) {
+            let query = e.target.value;
+
+            if (timeoutId != null)
+                clearTimeout(timeoutId);
+
+            timeoutId = setTimeout(() => {
+                axios.get('/api/pizza/search', {
+                    params: {
+                        title: query
+                    }
+                }).then(response => {
+                    RenderPost(response.data);
+
+                }).catch(error => {
+                    console.log(error);
+                })
+
+            }, 300);
         }
 
-    }).catch(error => {
-        console.log("Error", error); 
-    })    
+        axios.get('api/pizza/get').then(res => {
 
-</script>
+            RenderPost(res.data);
+
+        }).catch(error => {
+            debugger;
+            console.log(error);
+        })
+
+        function RenderPost(data) {
+
+            if (data.length == 0) {
+
+                document.querySelector('.js_no_pizza').classList.remove('d-none');
+                document.querySelector('.js_pizza_table').classList.add('d-none');
+
+            } else {
+
+                document.querySelector('.js_pizza_table').classList.remove('d-none');
+                document.querySelector('.js_no_pizza').classList.add('d-none');
+                document.querySelector('.js_pizza_table').innerHTML = '';
+
+                data.forEach(pizza => {
+                    console.log('pizza', pizza);
+                    document.querySelector('.js_pizza_table').innerHTML +=
+                        `
+                                <div class="col-12 col-md-4 p-2">
+                                    <div class="card pizza h-100">
+                                        <img src="${pizza.image}" class="card-img-top h-100" alt="...">
+                                        <div class="card-body">
+                                            <h5 class="card-title">${pizza.name}</h5>
+                                            <p class="card-text">${pizza.description}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
+                })
+            }
+
+        }
+
+    </script>
+}

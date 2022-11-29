@@ -1,4 +1,6 @@
-﻿namespace la_mia_pizzeria_static.Models.Repository
+﻿using Microsoft.Extensions.Hosting;
+
+namespace la_mia_pizzeria_static.Models.Repository
 {
     public interface IDbPizzeriaRepository
     {
@@ -7,5 +9,6 @@
         void Delete(Pizza pizza);
         Pizza GetById(int id);
         void Update(Pizza pizza, Pizza formData, List<int> selectedIngredients);
+        List<Pizza> SearchByTitle(string? title);
     }
 }
