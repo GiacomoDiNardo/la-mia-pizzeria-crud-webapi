@@ -71,13 +71,15 @@
                     document.querySelector('.js_pizza_table').innerHTML +=
                         `
                                 <div class="col-12 col-md-4 p-2">
-                                    <div class="card pizza h-100">
-                                        <img src="${pizza.image}" class="card-img-top h-100" alt="...">
-                                        <div class="card-body">
-                                            <h5 class="card-title">${pizza.name}</h5>
-                                            <p class="card-text">${pizza.description}</p>
+                                    <a href="/Guest/Details/${pizza.pizzaId}">
+                                        <div class="card pizza h-100">
+                                            <img src="${pizza.image}" class="card-img-top h-100" alt="...">
+                                            <div class="card-body">
+                                                <h5 class="card-title">${pizza.name}</h5>
+                                                <p class="card-text">${pizza.description}</p>
+                                            </div>
                                         </div>
-                                    </div>
+                                    </a>
                                 </div>
                             `;
                 })
