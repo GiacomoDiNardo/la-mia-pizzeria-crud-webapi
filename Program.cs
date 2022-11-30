@@ -1,9 +1,9 @@
+using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models.Repository;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddScoped<IDbPizzeriaRepository, DbPizzeriaRepository>();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -11,6 +11,10 @@ options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 options.JsonSerializerOptions.WriteIndented = true;
 });
 
+builder.Services.AddDbContext<PizzeriaDbContext>();
+
+builder.Services.AddScoped<IDbPizzeriaRepository, DbPizzeriaRepository>();
+builder.Services.AddScoped<IDbMessageRepository, DbMessageRepository>();
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

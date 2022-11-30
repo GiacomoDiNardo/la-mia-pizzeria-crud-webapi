@@ -1,5 +1,6 @@
 ﻿using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models;
+using la_mia_pizzeria_static.Models.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,11 +10,11 @@ namespace la_mia_pizzeria_static.Controllers.Api
     [ApiController]
     public class MessageController : ControllerBase
     {
-        private PizzeriaDbContext db;
+        IDbMessageRepository _messageRepository;
 
-        public MessageController(PizzeriaDbContext _db)
+        public MessageController(IDbMessageRepository messageRepository)
         {
-            db = _db;
+            _messageRepository = messageRepository;
         }
 
         [HttpPost]
@@ -21,8 +22,7 @@ namespace la_mia_pizzeria_static.Controllers.Api
         {
             try
             {
-                db.Messages.Add(message);
-                db.SaveChanges();
+                _messageRepository.Create(message);
 
             }
             catch (Exception e)
