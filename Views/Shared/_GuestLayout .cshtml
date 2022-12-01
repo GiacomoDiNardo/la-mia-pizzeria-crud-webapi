@@ -20,19 +20,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="Index">GuestHome</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Pizza" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Razor" asp-action="Snacks">Snacks</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Ingredient" asp-action="Index">Lista Ingredienti</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Guest" asp-action="Contact">Contattaci</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="@Url.Action("Index", "Pizza")">Admin</a>
                         </li>
                         <partial name="_LoginPartial" />
                     </ul>

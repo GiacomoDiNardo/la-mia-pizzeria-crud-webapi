@@ -2,6 +2,7 @@
 using la_mia_pizzeria_static.Models;
 using la_mia_pizzeria_static.Models.Forms;
 using la_mia_pizzeria_static.Models.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace la_mia_pizzeria_static.Controllers
 {
+    [Authorize]
     [Route("[controller]/[action]/{id?}",Order = 0 )]
     public class PizzaController : Controller
     {
@@ -17,10 +19,10 @@ namespace la_mia_pizzeria_static.Controllers
         IDbPizzeriaRepository pizzeriaRepository;
 
 
-        public PizzaController(IDbPizzeriaRepository _pizzeriaRepository) : base ()
+        public PizzaController(IDbPizzeriaRepository _pizzeriaRepository, PizzeriaDbContext _pizzaDb) : base ()
         {
-            db = new PizzeriaDbContext();
-
+            //db = new PizzeriaDbContext();
+            db = _pizzaDb;
             pizzeriaRepository = _pizzeriaRepository;
         } 
 
@@ -35,7 +37,7 @@ namespace la_mia_pizzeria_static.Controllers
 
         public IActionResult Detail(int id)
         {
-            PizzeriaDbContext db = new PizzeriaDbContext();
+            //PizzeriaDbContext db = new PizzeriaDbContext();
 
             Pizza pizza = pizzeriaRepository.GetById(id);
             return View(pizza);

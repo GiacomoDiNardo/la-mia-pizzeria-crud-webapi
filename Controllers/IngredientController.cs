@@ -1,18 +1,22 @@
 ﻿using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models;
 using la_mia_pizzeria_static.Models.Forms;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.Identity.Client;
 
 namespace la_mia_pizzeria_static.Controllers
 {
+    [Authorize]
     public class IngredientController : Controller
     {
         PizzeriaDbContext db;
 
         public IngredientController() : base()
         {
-            db = new PizzeriaDbContext();
+            //db = new PizzeriaDbContext();
         }
         public IActionResult Index()
         {
