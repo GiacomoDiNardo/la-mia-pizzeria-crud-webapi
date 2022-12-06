@@ -5,9 +5,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("PizzeriaDbContextConnection");builder.Services.AddDbContext<PizzeriaDbContext>(options =>
-    options.UseSqlServer(connectionString));builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+var connectionString = builder.Configuration.GetConnectionString("PizzeriaDbContextConnection");
+builder.Services.AddDbContext<PizzeriaDbContext>(options =>
+    options.UseSqlServer(connectionString));
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<PizzeriaDbContext>();
+
+
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
@@ -15,10 +19,11 @@ options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 options.JsonSerializerOptions.WriteIndented = true;
 });
 
-builder.Services.AddDbContext<PizzeriaDbContext>();
+
 
 builder.Services.AddScoped<IDbPizzeriaRepository, DbPizzeriaRepository>();
 builder.Services.AddScoped<IDbMessageRepository, DbMessageRepository>();
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 

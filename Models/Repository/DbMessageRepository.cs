@@ -7,9 +7,9 @@ namespace la_mia_pizzeria_static.Models.Repository
     {
         private PizzeriaDbContext db;
 
-        public DbMessageRepository(DbContextOptions<PizzeriaDbContext> options)
+        public DbMessageRepository(PizzeriaDbContext _db)
         {
-            db = new PizzeriaDbContext(options);
+            db = _db;
         }
 
         public void Create(Message message)

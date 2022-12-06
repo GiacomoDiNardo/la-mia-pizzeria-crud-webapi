@@ -9,9 +9,9 @@ namespace la_mia_pizzeria_static.Models.Repository
     {
         private PizzeriaDbContext db;
 
-        public DbPizzeriaRepository(DbContextOptions<PizzeriaDbContext> options)
+        public DbPizzeriaRepository(PizzeriaDbContext _db)
         {
-            db = new PizzeriaDbContext(options);
+            db = _db;
         }
 
         public List<Pizza> All()

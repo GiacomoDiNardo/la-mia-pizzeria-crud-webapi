@@ -1,4 +1,5 @@
-﻿using la_mia_pizzeria_static.Data;
+﻿using la_mia_pizzeria_static.Controllers;
+using la_mia_pizzeria_static.Data;
 using la_mia_pizzeria_static.Models;
 using la_mia_pizzeria_static.Models.Forms;
 using la_mia_pizzeria_static.Models.Repository;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
+
 
 namespace la_mia_pizzeria_static.Controllers
 {
@@ -21,16 +23,18 @@ namespace la_mia_pizzeria_static.Controllers
 
         public PizzaController(IDbPizzeriaRepository _pizzeriaRepository, PizzeriaDbContext _pizzaDb) : base ()
         {
-            //db = new PizzeriaDbContext();
+            
             db = _pizzaDb;
             pizzeriaRepository = _pizzeriaRepository;
+
+           
         } 
 
         public IActionResult Index()
         {
 
             List<Pizza> listaPizze = pizzeriaRepository.All();
-
+           
 
             return View(listaPizze);
         }
